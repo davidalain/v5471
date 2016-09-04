@@ -83,4 +83,20 @@ Dicas:
 
 ##########################################################################################################################################
 
+Enviar imagem nova para o PACE:
+
+curl -v -H "Expect:" "http://192.168.25.1/cgi-bin/firmware.cgi" -F sFirmwareFile=@B14103-GVT-OXY-42000.bin
+
+##########################################################################################################################################
+
+O Arquivo header é criado para a imagem binário específica, não é genérico.
+No header contém o nome do binário, os tamanhos do kernel e rootfs, entre outras coisas.
+Se os tamanhos não estiverem corretos, a imagem é inválida.
+
+Próximo passo: Descobrir como gerar o arquivo de header.
+
+
+
+
+
 
