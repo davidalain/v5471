@@ -5,7 +5,8 @@ BASE_KERNEL_VER=98509
 
 OUTPUT_DIR="build/$1"
 
-[[ "$#" -lt 1 ]] && {
+#[[ "$#" -lt 1 ]] && {
+[ "$#" -lt 1 ] && {
     echo "build.sh <version>"
         exit
 }

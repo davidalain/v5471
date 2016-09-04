@@ -1,0 +1,23 @@
+davidalain@davidalain-lubuntu:~/REPOSITORIO_DE_PROJETOS/v5471/squashfs-root$ grep -r "Triple Oxygen" .
+
+./etc/bewan/iad/pt_BR/js/app.javascript:                    <a href='http://www.tripleoxygen.net' target='_blank'>Triple Oxygen</a> |\
+./etc/bewan/iad/en_US/js/app.javascript:                    <a href='http://www.tripleoxygen.net' target='_blank'>Triple Oxygen</a> |\
+./etc/bewan/scripts/stats/update-webstats:# 42k Series (C) 2016 Triple Oxygen
+./etc/bewan/scripts/stats/graph.sh:# 42k Series (C) 2016 Triple Oxygen
+./etc/bewan/scripts/stats/init.sh:# 42k Series (C) 2016 Triple Oxygen
+./etc/bewan/scripts/stats/update.sh:# 42k Series (C) 2016 Triple Oxygen
+./etc/bewan/scripts/stats/graph_bins.sh:# 42k Series (C) 2016 Triple Oxygen
+./etc/bewan/scripts/backup-voice-profile:# 42k Series (C) 2015 Triple Oxygen
+./etc/bewan/ip-up.d/S99stats:# 42k Series (C) 2016 Triple Oxygen
+./etc/bewan/init.d/initial-backup:# (c) Triple Oxygen - http://www.tripleoxygen.net
+./etc/bewan/motd:42k Series (c)2016 Triple Oxygen
+
+
+
+Os headers de todas as versões 42K são diferentes, e é diferente do header que tá na pasta bin do repositório v5471.
+
+Os kernels de todas as versões 42K são iguais.
+
+Apesar de o script do O3 Labs estar usando o LZMA para o sistema de arquivos, o sistema de arquivos usados nos binários disponibilizados são GZIP e não LZMA.
+w
+Usar o binwalk pra descobrir qual o sistema de arquivos de um arquivo (rootfs).
