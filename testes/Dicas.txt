@@ -1,5 +1,56 @@
 
+Utilizei as dicas em http://domoticx.com/bestandssysteem-squashfs-tools-software/
+E usando o Lubuntu 15.04 x64
+Baixei o lzma 4.65 em:
+https://sourceforge.net/projects/sevenzip/files/LZMA%20SDK/4.65/
+Baixei o squashfs 4.2 em:
+https://sourceforge.net/projects/squashfs/files/squashfs/squashfs4.2/
+Extrai ambos os arquivos na pasta Downloads, ficando os arquivos nos seguintes caminhos:
+~/Downloads/lzma465
+e
+~/Downloads/squashfs4.2
+
+E realizei as seguintes etapas:
+
+1) Modificar em ~/Downloads/squashfs4.2/squashfs-tools/lzma_wrapper.c o include da lib lzma:
+
+de
+#include <lzmalib.h>
+para
+#include <../../lzma465/C/LzmaLib.h>
+
+2) Modificar ~/Downloads/squashfs4.2/squashfs-tools/Makefile:
+
+de
+#LZMA_SUPPORT = 1
+para
+LZMA_SUPPORT = 1
+
+de
+#LZMA_DIR = ../../../../LZMA/lzma465
+para
+LZMA_DIR = ~/Downloads/lzma465
+
+3) Compilar o squashfs 4.2, executando:
+cd ~/Downloads/squashfs4.2/squashfs-tools && make
+
+4) Modificar no repositório v5471 (repositório do projeto criado pelo TripleOxygen no github) o arquivo build_fs.sh:
+
+de 
+TOOLS_PREFIX=../../..
+$TOOLS_PREFIX/squashfs-4.2/mksquashfs squashfs-root/ build/$1/rootfs -comp lzma -b 65536 -all-root
+para
+TOOLS_PREFIX=~/Downloads/squashfs4.2/squashfs-tools
+$TOOLS_PREFIX/mksquashfs squashfs-root/ build/$1/rootfs -comp lzma -b 65536 -all-root
+
+5) Gerar a imagem custom 42K, executando o script de criação do build na pasta do repositório v5471:
+./build.sh NOMEDOBUILD
+Daí é gerada uma imagem .bin contendo header, kernel e sistema de arquivos.
+Mas esta imagem ainda não funciona.
+
 ##########################################################################################################################################
+
+Local onde estão os arquivos modificados por "O3 Labs":
 
 davidalain@davidalain-lubuntu:~/REPOSITORIO_DE_PROJETOS/v5471/squashfs-root$ grep -r "Triple Oxygen" .
 
@@ -18,13 +69,17 @@ davidalain@davidalain-lubuntu:~/REPOSITORIO_DE_PROJETOS/v5471/squashfs-root$ gre
 
 ##########################################################################################################################################
 
-Os headers de todas as versões 42K são diferentes, e é diferente do header que tá na pasta bin do repositório v5471.
+Notas importantes:
 
-Os kernels de todas as versões 42K são iguais.
+- Os headers de todas as versões 42K são diferentes, e é diferente do header que tá na pasta bin do repositório v5471.
 
-Apesar de o script do O3 Labs estar usando o LZMA para o sistema de arquivos, o sistema de arquivos usados nos binários disponibilizados são GZIP e não LZMA.
+- Os kernels de todas as versões 42K são iguais.
 
-Usar o binwalk pra descobrir qual o sistema de arquivos de um arquivo (rootfs).
+- Apesar de o script do O3 Labs estar usando o LZMA para o sistema de arquivos, o sistema de arquivos usados nos binários disponibilizados são GZIP e não LZMA.
+
+Dicas:
+
+- Usar o binwalk pra descobrir qual o sistema de arquivos de um arquivo (rootfs).
 
 ##########################################################################################################################################
 
