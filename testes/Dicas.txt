@@ -95,6 +95,13 @@ Se os tamanhos não estiverem corretos, a imagem é inválida.
 
 Próximo passo: Descobrir como gerar o arquivo de header.
 
+##########################################################################################################################################
+
+Escrever dentro de um binário em um posição específica
+
+printf 'shsq' | dd of=test bs=1 seek=$(( 0x20a000 )) count=4 conv=notrunc
+printf '\x01' | dd of=test bs=1 seek=$(( 0x20a014 )) count=1 conv=notrunc
+
 
 
 
